@@ -18,9 +18,6 @@ local function get_project_root(root_markers)
     })[1]
 
     if root_file then
-        -- vim.fs.find returns the path to the marker itself.
-        -- If the marker is a directory (.git), dirname gives us the project root.
-        -- If the marker is a file (package.json), dirname also gives us the project root.
         return vim.fs.dirname(root_file)
     end
 
@@ -28,7 +25,6 @@ local function get_project_root(root_markers)
 end
 
 M.copy_path = function(is_absolute, opts)
-    -- Merge defaults with user opts for this specific call
     opts = vim.tbl_deep_extend("force", defaults, opts or {})
 
     local file_path = vim.api.nvim_buf_get_name(0)
@@ -55,7 +51,6 @@ M.copy_path = function(is_absolute, opts)
 end
 
 M.setup = function(opts)
-    -- Store opts in the setup or pass them to commands
     local final_opts = vim.tbl_deep_extend("force", defaults, opts or {})
 
     vim.api.nvim_create_user_command("LeCheminRelative", function()
